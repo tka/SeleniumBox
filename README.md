@@ -39,7 +39,16 @@ deuac.iso 的來源是修改 ievms 的 Control ISO 建立方式做出來的, 只
 
     VBoxManage guestcontrol $vmname exec --image c:/Users/IEUser/Desktop/selenium/jre-7u51-windows-i586.exe --username 'IEUser' --password 'Passw0rd!'  --verbose --wait-stderr --wait-stdout --wait-exit /s
 
+# 建立 Selenium port forward
+    
+    VBoxManage controlvm $vmname natpf1 "selenium,tcp,,5555,,5555"
+# 關防火牆
+    
+    VBoxManage guestcontrol $vmname exec --image c:/Windows/System32/netsh.exe --username 'IEUser' --password 'Passw0rd!'  --verbose --wait-stderr --wait-stdout --wait-exit -- advfirewall set currentprofile state off
+
 # 起動 Selenium
 
     VBoxManage guestcontrol $vmname exec --image c:/Users/IEUser/Desktop/selenium/01_start_hub.bat --username 'IEUser' --password 'Passw0rd!' --verbose
     VBoxManage guestcontrol $vmname exec --image c:/Users/IEUser/Desktop/selenium/02_start_node.bat --username 'IEUser' --password 'Passw0rd!' --verbose
+
+
